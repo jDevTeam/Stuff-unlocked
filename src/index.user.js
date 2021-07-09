@@ -903,8 +903,8 @@
                 return 1;
               }
               var e;
-              expect(path ? '.misc' : '.user_finances', (content) => {
-                return content.insertAdjacentHTML(path ? 'afterBegin' : 'afterEnd',
+              expect('.user_finances', (content) => {
+                return content.insertAdjacentHTML('afterEnd',
                     '<div class="stuffBtn">Stuff++ Unlocked<span>' + GM_info.script.version + '</span></div>' + (data.autoFighter ? '' : '<div class="stuffBtn">' + (path ? 'AF' : 'AutoFighter') + '<span>' + GM_info.script.version + '</span></div>'));
               });
               expect('.stuffBtn', (t, canCreateDiscussions) => {
