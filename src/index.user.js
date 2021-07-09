@@ -1200,9 +1200,83 @@
                       return scope.attributes[key] ? ('energyRestore' == key ? 'Energy restore' : 'firePower' == key ? 'Firepower' : 'energyPool' == key ? 'Energy pool' : '') + ': ' + _resolve(resolve(scope.attributes[key].value)) : '';
                     }
 
+                    // language=CSS
+                    const storageCapacityStyles = `
+                        #storageCapacity {
+                            float: left;
+                            color: #5a5a5a;
+                            text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
+                            font-size: 11px;
+                            cursor: default;
+                            margin-top: 12px;
+                        }
+
+                        #storageCapacity img {
+                            float: left;
+                            margin: -1px 6px 0 2px;
+                            width: 22px;
+                            height: 16px
+                        }
+
+                        #storageCapacity strong {
+                            margin: 0 1px
+                        }
+                    `;
+                    // language=CSS
+                    const sideInventoryStyles = `
+                        #sideInventory {
+                            opacity: 0;
+                            transition: opacity 1s;
+                            position: absolute;
+                            line-height: 0;
+                            max-height: 80vh;
+                            column-width: 39px;
+                            column-gap: 1px;
+                            text-shadow: 0 0 2px #000
+                        }
+
+                        #sideInventory img {
+                            height: 39px;
+                            width: 39px;
+                            background: linear-gradient(#eef1ec, #d5decf)
+                        }
+
+                        #sideInventory span {
+                            font: 700 10px/13px arial;
+                            color: #fff;
+                            background: #83b70b;
+                            width: 39px;
+                            text-align: center;
+                            cursor: default;
+                            display: block
+                        }
+
+                        #sideInventory div {
+                            box-shadow: 1px 1px 5px gray;
+                            page-break-inside: avoid
+                        }
+
+                        .col {
+                            line-height: 19px
+                        }
+
+                        #sideInventory q {
+                            background: red;
+                            display: block;
+                            width: 100%
+                        }
+
+                        #overTime img {
+                            box-shadow: 0 0 0 3px inset #fb7e3d
+                        }
+
+                        #overTime img:hover {
+                            filter: brightness(1.1)
+                        }`
+                    ;
                     append(
-                        '#sideInventory{opacity:0;transition:opacity 1s;position:absolute;line-height:0;max-height:80vh;column-width:39px;column-gap:1px;text-shadow:0 0 2px #000}#sideInventory img{height:39px;width:39px;background:linear-gradient(#eef1ec,#d5decf)}#sideInventory span{font:700 10px/13px arial;color:#fff;background:#83b70b;width:39px;text-align:center;cursor:default;display:block}#sideInventory div{box-shadow:1px 1px 5px gray;page-break-inside:avoid}.col{line-height:19px}#sideInventory q{background:red;display:block;width:100%}#overTime img{box-shadow:0 0 0 3px inset #fb7e3d}#overTime img:hover{filter:brightness(1.1)}' +
-                        (path ? '' : '#storageCapacity{float:left;color:#5a5a5a;text-shadow:0 1px 0 rgba(255,255,255,.9);font-size:11px;cursor:default}#storageCapacity img{float:left;margin:-1px 6px 0 2px;width:22px;height:16px}#storageCapacity strong{margin:0 1px}'));
+                        sideInventoryStyles +
+                        storageCapacityStyles);
                     var err = normalize(item);
                     /** @type {number} */
                     var val = 0;
@@ -1283,7 +1357,7 @@
                     /** @type {string} */
                     var funcCode = resolve(item.inventoryStatus.usedStorage) + ' / ' + resolve(item.inventoryStatus.totalStorage);
                     if (path) {
-                      expect('.currency', (table) => {
+                      expect('.user_finances', (table) => {
                         return table.insertAdjacentHTML('afterEnd', '<article id="storageCapacity" class="currency"><span class="amount">' + funcCode + '</span><img src="/images/modules/manager/tab_storage.png" class="icon" style="height:16px"></article>');
                       });
                       expect('span.name', (e) => {
